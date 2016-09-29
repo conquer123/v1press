@@ -2,6 +2,7 @@ var path = require('path')
 var config = require('../config')
 var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
+var glob = require('glob')
 var entries = getEntry('./client/**/*.js'); // 获得入口js文件
 
 module.exports = {
@@ -9,7 +10,7 @@ module.exports = {
   output: {
     path: config.build.assetsRoot,
     publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
-    filename: '[name].js'
+    filename: 'js/[name].js'
   },
   resolve: {
     extensions: ['', '.js', '.vue'],
@@ -17,27 +18,28 @@ module.exports = {
     alias: {
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
+      'components': path.resolve(__dirname, '../src/components'),
+      'vue': 'vue/dist/vue.js'
     }
   },
   resolveLoader: {
     fallback: [path.join(__dirname, '../node_modules')]
   },
   module: {
-    preLoaders: [
-      {
-        test: /\.vue$/,
-        loader: 'eslint',
-        include: projectRoot,
-        exclude: /node_modules/
-      },
-      {
-        test: /\.js$/,
-        loader: 'eslint',
-        include: projectRoot,
-        exclude: /node_modules/
-      }
-    ],
+    // preLoaders: [
+    //   {
+    //     test: /\.vue$/,
+    //     loader: 'eslint',
+    //     include: projectRoot,
+    //     exclude: /node_modules/
+    //   },
+    //   {
+    //     test: /\.js$/,
+    //     loader: 'eslint',
+    //     include: projectRoot,
+    //     exclude: /node_modules/
+    //   }
+    // ],
     loaders: [
       {
         test: /\.vue$/,
@@ -75,9 +77,9 @@ module.exports = {
       }
     ]
   },
-  eslint: {
-    formatter: require('eslint-friendly-formatter')
-  },
+  // eslint: {
+  //   formatter: require('eslint-friendly-formatter')
+  // },
   vue: {
     loaders: utils.cssLoaders()
   }

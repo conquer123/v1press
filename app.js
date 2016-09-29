@@ -11,13 +11,13 @@ var webpackConfig = process.env.NODE_ENV === 'testing'
   ? require('./build/webpack.prod.conf')
   : require('./build/webpack.dev.conf')
 
-// app.set('views', path.join(__dirname, 'server/views'))
+app.set('views', path.join(__dirname, 'server/views'))
 // app.set('view engine', 'ejs')
-template.config('base', path.join(__dirname, 'server/views'));
+//添加template模板
+// template.config('base', path.join(__dirname, 'server/view'));
 template.config('extname', '.html');
 app.engine('.html', template.__express);
 app.set('view engine', 'html');
-
 app.use(router)
 
 if (isDev) {
